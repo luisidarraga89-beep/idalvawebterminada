@@ -2,29 +2,20 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 
 const schema = z.object({
-  name:      z.string().min(2).max(80),
-  company:   z.string().min(1).max(100),
-  email:     z.string().email(),
-  phone:     z.string().max(20).optional(),
-  challenge: z.string().min(10).max(500),
+  name: z.string().min(2).max(80),
+  email: z.string().email(),
+  company: z.string().max(100).optional(),
+  message: z.string().min(10).max(600),
 })
 
 export async function POST(req: NextRequest) {
   try {
     const parsed = schema.safeParse(await req.json())
-    if (!parsed.success) return NextResponse.json({ error: 'Invalid data' }, { status: 400 })
-    const webhookUrl = process.env.CONTACT_WEBHOOK_URL
-    if (webhookUrl) {
-      await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...parsed.data, timestamp: new Date().toISOString() }),
-      })
-    } else {
-      console.log('[contact]', parsed.data.name, parsed.data.email)
-    }
-    return NextResponse.json({ success: true })
-  } catch {
-    return NextResponse.json({ error: 'Server error' }, { status: 500 })
-  }
+    if (!parsed.success) return NextResponse.json({ error: 'Invalid' }, { status: 400 })
+    const wh = process.env.CONTACT_WEBHOOK_URL
+    if (wh) await fetch(wh, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...parsed.data, ts: new Date().toISOString() }) })
+    else console.log('[contact]', parsed.data.name, parsed.data.email)
+    return NextResponse.json({ ok: true })
+  } catch { return NextResponse.json({ error: 'Error' }, { status: 500 }) }
 }
+export async function GET() { return NextResponse.json({ error: 'Method not allowed' }, { status: 405 }) }

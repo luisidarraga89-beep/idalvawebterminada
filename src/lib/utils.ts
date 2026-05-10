@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 export const BRAND = {
   name:     'idalva',
   tagline:  'Escalar sin caos. Operar sin límites.',
-  email:    'luisidarraga89@gmail.com',
+  email:    'luis@idalva.es',
   phone:    '+34 643 43 12 97',
   linkedin: 'https://www.linkedin.com/in/luisalbertoidarragamedina/',
 } as const

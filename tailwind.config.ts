@@ -5,20 +5,29 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        grafito: { DEFAULT: '#0A0A0B', mid: '#1C1C1E', light: '#2A2A2C' },
-        carbono:  '#3A3A3C',
-        marfil:  { DEFAULT: '#F5F4F0', dim: '#C8C6C0' },
-        volt:    { DEFAULT: '#C8F04E', dim: '#8FA030' },
-        surface:  '#0F1011',
+        ink:   { DEFAULT: '#0A0909', 50: '#111010', 100: '#1A1919', 200: '#242222' },
+        stone: { DEFAULT: '#2E2C2C', light: '#3D3B3B', mist: '#6B6868' },
+        paper: { DEFAULT: '#F0EDE8', dim: '#B8B4AE', ghost: 'rgba(240,237,232,0.06)' },
+        volt:  { DEFAULT: '#C8F04E', dim: '#8FA030', ghost: 'rgba(200,240,78,0.08)' },
       },
-      fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+      fontFamily: {
+        sans:   ['Inter', 'system-ui', 'sans-serif'],
+        display:['Inter', 'system-ui', 'sans-serif'],
+      },
+      letterSpacing: {
+        tightest: '-0.04em',
+        tighter:  '-0.03em',
+        tight:    '-0.02em',
+      },
       animation: {
-        'marquee':    'marquee 30s linear infinite',
-        'pulse-volt': 'pulse-volt 2.5s ease-in-out infinite',
+        'fade-up':   'fade-up 0.8s ease forwards',
+        'fade-in':   'fade-in 0.6s ease forwards',
+        'marquee':   'marquee 35s linear infinite',
       },
       keyframes: {
-        marquee:      { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
-        'pulse-volt': { '0%,100%': { opacity: '1', transform: 'scale(1)' }, '50%': { opacity: '0.7', transform: 'scale(0.94)' } },
+        'fade-up':  { '0%': { opacity: '0', transform: 'translateY(32px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+        'fade-in':  { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+        'marquee':  { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } },
       },
     },
   },
