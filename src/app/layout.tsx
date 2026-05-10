@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import '../styles/globals.css'
+import { CookieBanner } from '@/components/ui/CookieBanner'
 
 export const viewport: Viewport = {
   themeColor: '#0A0909',
@@ -10,7 +11,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'idalva · Estructura operativa para empresas que quieren crecer sin caos',
   description: 'Diseñamos la estructura, los procesos y los sistemas que tu negocio necesita para crecer con claridad, control y dirección. No somos una agencia. Somos la estructura que falta.',
-  keywords: ['estructura operativa', 'organización empresarial', 'caos operativo', 'escalar empresa', 'CRM pymes', 'dirección estratégica Barcelona'],
+  keywords: ['estructura operativa','organización empresarial','caos operativo','escalar empresa','CRM pymes','dirección estratégica'],
   authors: [{ name: 'Luis Idárraga' }, { name: 'Melissa Villegas' }],
   openGraph: {
     title: 'idalva · Estructura operativa para empresas',
@@ -21,7 +22,11 @@ export const metadata: Metadata = {
     type: 'website',
     images: [{ url: 'https://idalva.es/og.jpg', width: 1200, height: 630 }],
   },
-  twitter: { card: 'summary_large_image', title: 'idalva · Estructura operativa', description: 'Tu empresa debería darte libertad. Nosotros construimos la estructura para que eso sea posible.' },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'idalva · Estructura operativa',
+    description: 'Tu empresa debería darte libertad. Nosotros construimos la estructura para que eso sea posible.',
+  },
   robots: { index: true, follow: true },
   icons: { icon: '/favicon.ico' },
 }
@@ -38,15 +43,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           name: 'idalva',
           url: 'https://idalva.es',
           email: 'luis@idalva.es',
+          telephone: '+34643431297',
           description: 'Firma de estructura operativa y escalabilidad para empresas',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: 'Calle Teodor Creus i Corominas 11, 1-2',
+            postalCode: '08800',
+            addressLocality: 'Vilanova i la Geltrú',
+            addressRegion: 'Barcelona',
+            addressCountry: 'ES',
+          },
           founder: [
             { '@type': 'Person', name: 'Luis Idárraga', jobTitle: 'CEO' },
             { '@type': 'Person', name: 'Melissa Villegas', jobTitle: 'COO' },
           ],
-          address: { '@type': 'PostalAddress', addressLocality: 'Barcelona', addressCountry: 'ES' },
         })}} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <CookieBanner />
+      </body>
     </html>
   )
 }

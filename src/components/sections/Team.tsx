@@ -11,9 +11,9 @@ const members = [
     role: 'Co-fundador & CEO',
     focus: 'Estrategia comercial y crecimiento',
     quote: 'El crecimiento de un negocio no depende de la suerte. Depende de la estructura que exista detrás.',
-    bio: 'Empezó vendiendo junto a su padre en la calle. Con los años pasó por multinacionales, startups tecnológicas y equipos comerciales en España, liderando equipos y ayudando a empresas a estructurar sus sistemas de crecimiento. Su especialidad: convertir el caos comercial en un sistema predecible y escalable.',
+    bio: 'Empezó vendiendo junto a su padre en la calle. Con los años pasó por multinacionales, startups tecnológicas y equipos comerciales en España, liderando equipos y ayudando a empresas a estructurar sus sistemas de crecimiento. Su especialidad: detectar qué está frenando las ventas de un negocio y construir procesos comerciales claros, medibles y escalables.',
     skills: ['CRM', 'Sales pipeline', 'Estrategia comercial', 'Go-to-market'],
-    photo: '/luis2.jpg',
+    photo: '/luis.jpg',
     photoAlt: 'Luis Idárraga — Co-fundador y CEO de idalva',
   },
   {
@@ -22,9 +22,9 @@ const members = [
     role: 'Co-fundadora & COO',
     focus: 'Operaciones, procesos y control',
     quote: 'El problema no es crecer. El problema es crecer sin estructura.',
-    bio: 'Economista especializada en operaciones. Desde el inicio de su carrera convirtió negocios desordenados en organizaciones claras. En startups tecnológicas construyó desde cero procesos, herramientas y equipos alineados. Entendió algo clave: las empresas no fallan por falta de talento, fallan porque no tienen un sistema claro para operar.',
+    bio: 'Economista especializada en operaciones. Desde el inicio de su carrera tuvo una habilidad muy concreta: entrar en negocios desordenados y convertir el caos en procesos claros. En startups tecnológicas construyó operaciones desde cero: documentando procesos, definiendo estructura interna e implementando herramientas. Entendió algo clave: las empresas no fallan por falta de talento. Fallan porque no tienen un sistema claro para operar.',
     skills: ['Operaciones', 'ERP', 'Procesos', 'Gestión de equipos'],
-    photo: '/melissa2.jpg',
+    photo: '/melissa.jpg',
     photoAlt: 'Melissa Villegas — Co-fundadora y COO de idalva',
   },
 ]
@@ -32,7 +32,7 @@ const members = [
 export function Team() {
   const [active, setActive] = useState(0)
   const [ref, inView] = useInView(0.08)
-  const s = (d: number) => ({
+  const s = (d: number): React.CSSProperties => ({
     opacity: inView ? 1 : 0,
     transform: inView ? 'translateY(0)' : 'translateY(24px)',
     transition: `opacity 0.8s ease ${d}s, transform 0.8s ease ${d}s`,
@@ -44,65 +44,83 @@ export function Team() {
 
         {/* Header */}
         <div className="max-w-2xl mb-16 md:mb-20" style={s(0)}>
-          <p className="t-label mb-5" style={{color:'rgba(200,240,78,0.6)'}}>Quiénes somos</p>
-          <h2 className="t-headline text-white mb-6 text-balance">No somos consultores de PowerPoint.</h2>
+          <p className="t-label mb-5" style={{color:'rgba(200,240,78,0.6)'}}>El equipo</p>
+          <h2 className="t-headline text-white mb-6 text-balance">
+            No somos consultores de PowerPoint.
+          </h2>
           <p className="t-body-lg text-balance" style={{color:'rgba(240,237,232,0.5)'}}>
             Somos dos personas que han construido negocios, organizado operaciones y vivido el caos empresarial desde dentro.
           </p>
         </div>
 
-        {/* Interactive portrait selector */}
+        {/* Interactive portraits */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 mb-16">
 
-          {/* Portraits — click to select */}
+          {/* Left — photo selector */}
           <div style={s(0.1)}>
-            <div className="flex gap-4 mb-6">
+            {/* Selector tabs */}
+            <div className="flex gap-3 mb-6">
               {members.map((m, i) => (
-                <button key={m.id} onClick={() => setActive(i)}
-                  className={cn('text-sm font-medium px-4 py-2 rounded-full transition-all duration-300',
+                <button
+                  key={m.id}
+                  onClick={() => setActive(i)}
+                  className={cn(
+                    'text-sm font-medium px-5 py-2.5 rounded-full transition-all duration-300',
                     active === i
                       ? 'bg-volt text-black'
-                      : 'bg-white/[0.05] text-white/50 hover:text-white hover:bg-white/[0.08]'
-                  )}>
+                      : 'border border-white/10 text-white/40 hover:text-white hover:border-white/20'
+                  )}
+                >
                   {m.name.split(' ')[0]}
                 </button>
               ))}
             </div>
 
-            <div className="relative h-[480px] md:h-[560px]">
+            {/* Photo container — fixed height, photos switch */}
+            <div className="relative h-[500px] md:h-[580px] rounded-2xl overflow-hidden">
               {members.map((m, i) => (
-                <div key={m.id}
-                  className={cn('absolute inset-0 rounded-2xl overflow-hidden transition-all duration-700',
-                    active === i
-                      ? 'opacity-100 scale-100 z-10'
-                      : 'opacity-30 scale-[0.97] z-0'
-                  )}>
-                  <Image src={m.photo} alt={m.photoAlt} fill
+                <div
+                  key={m.id}
+                  className="absolute inset-0 transition-all duration-700"
+                  style={{
+                    opacity: active === i ? 1 : 0,
+                    transform: active === i ? 'scale(1)' : 'scale(1.03)',
+                  }}
+                >
+                  <Image
+                    src={m.photo}
+                    alt={m.photoAlt}
+                    fill
                     className="object-cover object-top"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
-                  <div className="absolute inset-0" style={{background:'linear-gradient(to bottom, transparent 45%, rgba(10,9,9,0.95) 100%)'}} />
+                  <div className="absolute inset-0" style={{background:'linear-gradient(to bottom, transparent 45%, rgba(10,9,9,0.97) 100%)'}} />
                   <div className="absolute bottom-0 left-0 right-0 p-7">
                     <p className="font-semibold text-xl text-white mb-1">{m.name}</p>
                     <p className="t-label" style={{color:'rgba(200,240,78,0.75)'}}>{m.role}</p>
-                    {active === i && (
-                      <p className="text-sm mt-2" style={{color:'rgba(240,237,232,0.5)'}}>{m.focus}</p>
-                    )}
+                    <p className="text-sm mt-1.5" style={{color:'rgba(240,237,232,0.45)'}}>{m.focus}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Bio — switches with selection */}
-          <div className="flex flex-col justify-center" style={s(0.2)}>
+          {/* Right — bio panel */}
+          <div className="flex flex-col justify-center relative" style={s(0.2)}>
             {members.map((m, i) => (
-              <div key={m.id}
-                className={cn('transition-all duration-500',
-                  active === i ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 absolute pointer-events-none'
-                )}>
+              <div
+                key={m.id}
+                className="transition-all duration-500"
+                style={{
+                  opacity: active === i ? 1 : 0,
+                  transform: active === i ? 'translateY(0)' : 'translateY(12px)',
+                  position: active === i ? 'relative' : 'absolute',
+                  pointerEvents: active === i ? 'auto' : 'none',
+                  width: '100%',
+                }}
+              >
                 <blockquote className="border-l-2 pl-6 mb-7" style={{borderColor:'rgba(200,240,78,0.3)'}}>
-                  <p className="text-lg italic leading-relaxed" style={{color:'rgba(240,237,232,0.6)'}}>
+                  <p className="text-lg italic leading-relaxed" style={{color:'rgba(240,237,232,0.65)'}}>
                     &ldquo;{m.quote}&rdquo;
                   </p>
                 </blockquote>
@@ -117,11 +135,10 @@ export function Team() {
                     </span>
                   ))}
                 </div>
-                {/* Minimal stats */}
                 <div className="grid grid-cols-2 gap-6 pt-6 border-t border-white/[0.06]">
                   <div>
                     <p className="text-2xl font-bold text-white mb-1">+12</p>
-                    <p className="text-xs" style={{color:'rgba(240,237,232,0.35)'}}>años de experiencia</p>
+                    <p className="text-xs" style={{color:'rgba(240,237,232,0.35)'}}>años de experiencia real</p>
                   </div>
                   <div>
                     <p className="text-2xl font-bold text-white mb-1">{i === 0 ? 'Ventas' : 'Ops'}</p>
@@ -134,7 +151,7 @@ export function Team() {
         </div>
 
         {/* Closing statement */}
-        <div className="rule mb-12 md:mb-16" style={s(0.45)} />
+        <div className="rule mb-12" style={s(0.4)} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10" style={s(0.5)}>
           <p className="t-title text-white text-balance">
             Lo que separa a la mayoría,{' '}
