@@ -1,39 +1,11 @@
 'use client'
 import Image from 'next/image'
-import { useEffect, useRef } from 'react'
 import { Isotipo } from '@/components/ui/Isotipo'
 
 export function Hero({ onOpen }: { onOpen: () => void }) {
-  const r0 = useRef<HTMLParagraphElement>(null)
-  const r1 = useRef<HTMLHeadingElement>(null)
-  const r2 = useRef<HTMLParagraphElement>(null)
-  const r3 = useRef<HTMLDivElement>(null)
-  const r4 = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const els = [r0.current, r1.current, r2.current, r3.current, r4.current]
-    els.forEach((el, i) => {
-      if (!el) return
-      setTimeout(() => {
-        el.style.opacity = '1'
-        el.style.transform = 'translateY(0)'
-      }, 150 + i * 130)
-    })
-  }, [])
-
-  const fade: React.CSSProperties = {
-    opacity: 0,
-    transform: 'translateY(28px)',
-    transition: 'opacity 0.9s ease, transform 0.9s ease',
-  }
-
   return (
-    <section id="inicio" className="relative min-h-screen flex flex-col overflow-hidden">
-      <div aria-hidden className="absolute inset-0 bg-[#0A0909]">
-        <div className="absolute inset-0" style={{background:'radial-gradient(ellipse 70% 50% at 65% 40%, rgba(200,240,78,0.025) 0%, transparent 65%)'}} />
-      </div>
+    <section id="inicio" className="relative min-h-screen flex flex-col overflow-hidden bg-[#0A0909]">
 
-      {/* Decorative isotipo background */}
       <div aria-hidden className="absolute right-[8%] top-1/2 -translate-y-1/2 opacity-[0.04] pointer-events-none hidden lg:block">
         <Isotipo size={520} />
       </div>
@@ -41,19 +13,18 @@ export function Hero({ onOpen }: { onOpen: () => void }) {
       <div className="container-ed relative z-10 flex flex-col justify-center flex-1 pt-28 pb-16 md:pt-36 md:pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-16 items-center">
 
-          {/* Text */}
-          <div>
-            <p ref={r0} className="t-label mb-8 md:mb-10" style={{...fade, color:'rgba(200,240,78,0.65)'}}>
+          <div className="flex flex-col gap-8">
+            <p className="t-label" style={{color:'rgba(200,240,78,0.65)'}}>
               Estructura operativa · España
             </p>
-            <h1 ref={r1} className="t-display text-white text-balance mb-8" style={fade}>
+            <h1 className="t-display text-white text-balance">
               Tu empresa crece.{' '}
               <span style={{color:'rgba(240,237,232,0.3)'}}>Pero tú trabajas más que nunca.</span>
             </h1>
-            <p ref={r2} className="t-body-lg max-w-lg mb-10 text-balance" style={{...fade, color:'rgba(240,237,232,0.5)'}}>
+            <p className="t-body-lg max-w-lg text-balance" style={{color:'rgba(240,237,232,0.5)'}}>
               Diseñamos la estructura operativa que tu negocio necesita para crecer con claridad, control y dirección.
             </p>
-            <div ref={r3} className="flex flex-col sm:flex-row gap-4" style={fade}>
+            <div className="flex flex-col sm:flex-row gap-4">
               <button onClick={onOpen} className="btn-primary">
                 Hablar con nosotros
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 16 16" aria-hidden>
@@ -64,42 +35,36 @@ export function Hero({ onOpen }: { onOpen: () => void }) {
             </div>
           </div>
 
-          {/* Editorial dual portrait */}
-          <div ref={r4} className="relative hidden lg:block" style={fade}>
+          <div className="relative hidden lg:block">
             <div className="relative h-[600px] w-full">
-              {/* Melissa — back right */}
               <div className="absolute right-0 top-0 w-[60%] h-[90%] rounded-2xl overflow-hidden">
                 <Image src="/melissa2.jpg" alt="Melissa Villegas — Co-fundadora y COO de idalva"
                   fill className="object-cover object-top" priority sizes="30vw" />
                 <div className="absolute inset-0" style={{background:'linear-gradient(to bottom, transparent 55%, rgba(10,9,9,0.92) 100%)'}} />
                 <div className="absolute bottom-5 left-5">
-                  <p className="text-xs font-medium text-white/60">Melissa Villegas</p>
+                  <p className="text-xs font-medium" style={{color:'rgba(240,237,232,0.6)'}}>Melissa Villegas</p>
                   <p className="text-[10px] mt-0.5" style={{color:'rgba(200,240,78,0.6)'}}>COO · Operaciones</p>
                 </div>
               </div>
-              {/* Luis — front left */}
-              <div className="absolute left-0 bottom-0 w-[58%] h-[82%] rounded-2xl overflow-hidden border border-white/[0.06]"
-                style={{boxShadow:'0 24px 60px rgba(0,0,0,0.6)'}}>
+              <div className="absolute left-0 bottom-0 w-[58%] h-[82%] rounded-2xl overflow-hidden"
+                style={{border:'1px solid rgba(240,237,232,0.06)', boxShadow:'0 24px 60px rgba(0,0,0,0.6)'}}>
                 <Image src="/luis2.jpg" alt="Luis Idárraga — Co-fundador y CEO de idalva"
                   fill className="object-cover object-top" priority sizes="28vw" />
                 <div className="absolute inset-0" style={{background:'linear-gradient(to bottom, transparent 55%, rgba(10,9,9,0.92) 100%)'}} />
                 <div className="absolute bottom-5 left-5">
-                  <p className="text-xs font-medium text-white/60">Luis Idárraga</p>
+                  <p className="text-xs font-medium" style={{color:'rgba(240,237,232,0.6)'}}>Luis Idárraga</p>
                   <p className="text-[10px] mt-0.5" style={{color:'rgba(200,240,78,0.6)'}}>CEO · Estrategia</p>
                 </div>
               </div>
-              {/* Tag */}
-              <div className="absolute top-4 right-4 bg-[#0D0C0C]/90 backdrop-blur-sm border border-white/[0.07] rounded-xl px-4 py-2.5">
+              <div className="absolute top-4 right-4 rounded-xl px-4 py-2.5"
+                style={{background:'rgba(13,12,12,0.9)', border:'1px solid rgba(240,237,232,0.07)'}}>
                 <p className="text-xs font-medium text-white">idalva</p>
                 <p className="text-[10px] mt-0.5" style={{color:'rgba(240,237,232,0.35)'}}>Luis & Melissa · Co-fundadores</p>
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2" aria-hidden>
-        <div className="w-px h-10 bg-gradient-to-b from-white/15 to-transparent" />
+        </div>
       </div>
     </section>
   )
